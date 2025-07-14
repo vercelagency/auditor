@@ -2,21 +2,27 @@ import streamlit as st
 import pandas as pd
 import openpyxl
 import io
+import xlrd
 
 st.set_page_config(page_title="Excel Discrepancy Checker", layout="centered")
 st.title("Excel Discrepancy Checker")
 
 st.write("Upload two Excel files. Each must contain a sheet named 'ControlSheet' (case-insensitive). The app will compare key sales data using the provided rubric.")
 
-uploaded_file1 = st.file_uploader("Upload Subway Excel file", type=["xlsx"], key="file1")
-uploaded_file2 = st.file_uploader("Upload Sunthesis Excel file", type=["xlsx"], key="file2")
+uploaded_file1 = st.file_uploader("Upload Subway Excel file", type=["xlsx", "xls"], key="file1")
+uploaded_file2 = st.file_uploader("Upload Sunthesis Excel file", type=["xlsx", "xls"], key="file2")
+
+def get_engine(file):
+    if file.name.lower().endswith(".xls"):
+        return "xlrd"
+    return "openpyxl"
 
 if uploaded_file1 and uploaded_file2:
     st.success("Both files uploaded. Processing...")
     
     def load_control_sheet(file):
-        # Read all sheet names (case-insensitive match)
-        xls = pd.ExcelFile(file, engine="openpyxl")
+        engine = get_engine(file)
+        xls = pd.ExcelFile(file, engine=engine)
         control_sheet_name = None
         for sheet in xls.sheet_names:
             if sheet.lower() == "controlsheet":
@@ -24,7 +30,7 @@ if uploaded_file1 and uploaded_file2:
                 break
         if control_sheet_name is None:
             return None, xls.sheet_names
-        df = pd.read_excel(xls, sheet_name=control_sheet_name, header=None, engine="openpyxl")
+        df = pd.read_excel(xls, sheet_name=control_sheet_name, header=None, engine=engine)
         return df, xls.sheet_names
 
     subway_df, subway_sheets = load_control_sheet(uploaded_file1)
