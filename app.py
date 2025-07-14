@@ -188,14 +188,21 @@ if uploaded_file1 and uploaded_file2:
 else:
     st.info("Please upload both Excel files to proceed.") 
 
-# Add custom CSS for green background on Subway file uploader
+# Add custom CSS for green background and border on Subway file uploader only
 st.markdown(
     """
     <style>
+    /* Target the first file uploader (Subway) and its label */
     div[data-testid="stFileUploader"]:first-of-type > div:first-child {
-        background-color: #2ecc40 !important;
+        background-color: #27ae60 !important;
+        border: 2px solid #2ecc40 !important;
         border-radius: 0.5rem;
         padding: 1.5rem 1rem;
+        box-shadow: 0 0 8px #2ecc40;
+    }
+    div[data-testid="stFileUploader"]:first-of-type label {
+        color: #2ecc40 !important;
+        font-weight: bold;
     }
     </style>
     """,
