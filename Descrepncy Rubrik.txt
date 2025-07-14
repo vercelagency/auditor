@@ -1,0 +1,43 @@
+# discrepancy_checker_rubric.py
+
+"""
+✅ Discrepancy Detection Rubric (Updated)
+
+📄 Files:
+- Compare two Excel files, each with a sheet named ControlSheet (case-insensitive match).
+
+🔍 Where to Look:
+Cell Ranges (fixed rows, fixed columns):
+- R9:X9   → FOOT LONG SALES (30cm)
+- R10:X10 → =+SALAD/WRAPS SALES
+- R11:X11 → +6-INCH SALES (15cm)
+- R13:X13 → +ADD-ON SALES
+- C13:I13 → GROSS SALES
+- R32:X32 → SALES TAX
+- R39:X39 → ADJ. FOOT LONG UNITS (30cm)
+- R40:X40 → =+ADJ. SALAD/WRAPS UNITS
+- R41:X41 → +ADJ. 6-INCH UNITS (15cm)
+- R44:X44 → +FREE UNITS (if present)
+
+
+
+Columns R to X (7 columns) = daily values (Wednesday to Tuesday).
+Optional: use row 8 for extracting date or day headers.
+
+🧪 How to Compare:
+- Compare cell-by-cell between the two ControlSheet tabs.
+- If value differs → mark as Mismatch
+- If a label row is missing → mark as Label Missing
+
+🧾 Output Table Columns Must Include:
+- Label
+- Day / Date
+- Subway Value
+- Sunthesis Value
+- Difference
+
+Example:
+| Label                  | Day / Date     | Subway Value | Sunthesis Value | Difference |
+|------------------------|----------------|--------------|------------------|------------|
+| FOOT LONG SALES (30cm) | 2 Jul 2025     | 23,993       | 26,918           | +2,925     |
+"""
