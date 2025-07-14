@@ -8,18 +8,16 @@
 
 🔍 Where to Look:
 Cell Ranges (fixed rows, fixed columns):
-- R9:X9   → FOOT LONG SALES (30cm)
-- R10:X10 → =+SALAD/WRAPS SALES
-- R11:X11 → +6-INCH SALES (15cm)
-- R13:X13 → +ADD-ON SALES
 - C13:I13 → GROSS SALES
+- R9:X9   → FOOT LONG SALES (30cm)
+- R10:X10 → SALAD/WRAPS SALES
+- R11:X11 → 6-INCH SALES (15cm)
+- R13:X13 → ADD-ON SALES
 - R32:X32 → SALES TAX
 - R39:X39 → ADJ. FOOT LONG UNITS (30cm)
-- R40:X40 → =+ADJ. SALAD/WRAPS UNITS
-- R41:X41 → +ADJ. 6-INCH UNITS (15cm)
-- R44:X44 → +FREE UNITS (if present)
-
-
+- R40:X40 → ADJ. SALAD/WRAPS UNITS
+- R41:X41 → ADJ. 6-INCH UNITS (15cm)
+- R44:X44 → FREE UNITS (if present)
 
 Columns R to X (7 columns) = daily values (Wednesday to Tuesday).
 Optional: use row 8 for extracting date or day headers.

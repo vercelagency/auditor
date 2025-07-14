@@ -3,6 +3,7 @@ import pandas as pd
 import openpyxl
 import io
 import xlrd
+import re
 
 st.set_page_config(page_title="Excel Discrepancy Checker", layout="centered")
 st.title("Excel Discrepancy Checker")
@@ -85,7 +86,12 @@ if uploaded_file1 and uploaded_file2:
 
         # Prepare comparison results
         results = []
+        def sanitize_label(label):
+            # Remove leading =, +, or =+ (and any quotes)
+            return re.sub(r'^(=\+|=|\+)', '', label).replace('"', '').replace("'", "")
+
         for label, row_info in label_rows.items():
+            sanitized_label = sanitize_label(label)
             if label == "GROSS SALES":
                 row_idx, col_start_gross, col_end_gross = row_info
                 # Use Subway headers by default, fallback to Sunthesis if missing
@@ -97,7 +103,7 @@ if uploaded_file1 and uploaded_file2:
                 row_sunthesis = extracted_sunthesis[label]
                 for i, day_date in enumerate(headers):
                     entry = {
-                        "Label": label,
+                        "Label": sanitized_label,
                         "Day / Date": str(day_date),
                         "Subway Value": None,
                         "Sunthesis Value": None,
@@ -139,7 +145,7 @@ if uploaded_file1 and uploaded_file2:
                 row_sunthesis = extracted_sunthesis[label]
                 for i, day_date in enumerate(headers):
                     entry = {
-                        "Label": label,
+                        "Label": sanitized_label,
                         "Day / Date": str(day_date),
                         "Subway Value": None,
                         "Sunthesis Value": None,
